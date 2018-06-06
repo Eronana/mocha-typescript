@@ -183,9 +183,17 @@ class SuiteTest {
         this.run("es6", "suite.inheritance.override2.suite");
     }
 
+    @test "di typedi suite es5"() {
+        this.run("es5", "di.typedi.suite");
+    }
+
+    @test "di typedi suite es6"() {
+        this.run("es6", "di.typedi.suite");
+    }
+
     private run(target: string, ts: string) {
         let tsc = spawnSync("node", [path.join(".", "node_modules", "typescript", "bin", "tsc"),
-                                     "--experimentalDecorators", "--module", "commonjs", "--target", target, "--lib",
+                                     "--emitDecoratorMetadata", "--experimentalDecorators", "--module", "commonjs", "--target", target, "--lib",
                                      "es6", path.join("tests", "ts", ts + ".ts")]);
 
         assert.equal(tsc.stdout.toString(), "", "Expected error free tsc.");
